@@ -7,3 +7,20 @@ function replaceSubStr(initialStr, subStr, newSubStr) {
     return initialStr.replace(reg, newSubStr);
 }
 
+function showObjectValues(obj) {
+    let result = [];
+
+    getValue(obj);
+
+    function getValue(obj) {
+        for (let key in obj) {
+            if (typeof (obj[key]) === 'object') {
+                getValue(obj[key]);
+            } else {
+                result.push(obj[key])
+            }
+        }
+    }
+
+    console.log(result);
+}
