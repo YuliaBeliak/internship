@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-// creating conflict
-=======
 function reverseString(str) {
     return str.split('').reverse().join('');
 }
@@ -27,4 +24,3 @@ function showObjectValues(obj) {
 
     console.log(result);
 }
->>>>>>> task/1
