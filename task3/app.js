@@ -13,16 +13,16 @@ app.get('/', (req, res) => {
     res.send('Hello!');
 });
 
-app.get('/:file', (req, res) => {
+app.route('/:file')
+    .get((req, res) => {
     fs.readFile(path.join(__dirname, `./files${req.url}.txt`), 'utf-8', (err, data) => {
         if (err) {
             res.end(`File '${req.url}.txt' does not exist`);
         }
         res.send(data);
     })
-});
-
-app.post('/:file', (req, res) => {
+})
+    .post((req, res) => {
     fs.access(path.join(__dirname, `./files${req.url}.txt`), fs.constants.F_OK, (err) => {
         if (err) {
             fs.writeFile(path.join(__dirname, `./files${req.url}.txt`), req.body, (err) => {
@@ -35,9 +35,8 @@ app.post('/:file', (req, res) => {
             res.send('The file already exist');
         }
     });
-});
-
-app.put('/:file', (req, res) => {
+})
+    .put((req, res) => {
     fs.access(path.join(__dirname, `./files${req.url}.txt`), fs.constants.F_OK, (err) => {
         if (err) {
             res.send('File does not exist')
@@ -51,9 +50,8 @@ app.put('/:file', (req, res) => {
             });
         }
     });
-});
-
-app.delete('/:file', (req, res) => {
+})
+    .delete((req, res) => {
     fs.access(path.join(__dirname, `./files${req.url}.txt`), fs.constants.F_OK, (err) => {
         if (err) {
             res.send('File does not exist');
