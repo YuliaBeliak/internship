@@ -17,14 +17,14 @@ app.route('/:file')
     .get((req, res) => {
         fs.readFile(path.join(__dirname, `./files${req.url}.txt`), 'utf-8', (err, data) => {
             if (err) {
-                res.end(`File '${req.url}.txt' does not exist`);
+                res.end(`The file '${req.url}.txt' does not exist`);
             }
             res.send(data);
         })
     })
     .post((req, res) => {
         if (checkExistence(req.url)) {
-            res.send('The file already exist');
+            res.send('The file already exists');
         } else {
             fs.writeFile(path.join(__dirname, `./files${req.url}.txt`), req.body, (err) => {
                 if (err) {
@@ -40,22 +40,22 @@ app.route('/:file')
                 if (err) {
                     throw err;
                 } else {
-                    res.send(`file has been updated`);
+                    res.send(`The file has been updated`);
                 }
             });
         } else {
-            res.send('File does not exist')
+            res.send('The file does not exist')
         }
     })
     .delete((req, res) => {
         if (checkExistence(req.url)) {
             fs.unlink(path.join(__dirname, `./files${req.url}.txt`), (err) => {
                 if (err) throw err;
-                res.send(`file has been deleted`);
+                res.send(`The file has been deleted`);
             });
 
         } else {
-            res.send('File does not exist');
+            res.send('The file does not exist');
         }
     });
 
