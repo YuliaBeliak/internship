@@ -13,11 +13,16 @@ app.get('/', (req, res) => {
     res.send('Hello!');
 });
 
+
+// works with content-type: text/plain
+
+
 app.route('/:file')
     .get((req, res) => {
         fs.readFile(path.join(__dirname, `./files${req.url}.txt`), 'utf-8', (err, data) => {
             if (err) {
                 res.end(`The file '${req.url}.txt' does not exist`);
+                return;
             }
             res.send(data);
         })
@@ -29,6 +34,7 @@ app.route('/:file')
             fs.writeFile(path.join(__dirname, `./files${req.url}.txt`), req.body, (err) => {
                 if (err) {
                     console.log(err);
+                    return;
                 }
                 res.send('The file has been saved');
             });
@@ -53,7 +59,6 @@ app.route('/:file')
                 if (err) throw err;
                 res.send(`The file has been deleted`);
             });
-
         } else {
             res.send('The file does not exist');
         }
